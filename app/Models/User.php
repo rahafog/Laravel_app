@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Dom\Comment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -51,4 +53,20 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany(Post::class);
     }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+     public function likes(){
+        return $this->belongsToMany(Post::class,'likes');
+    }
+
+    public function follwing(){
+        return $this->belongsToMany(User::class,'follows','user_id','following_user_id')->withPivot('confirmed');
+    }
+    public function follwer(){
+        return $this->belongsToMany(User::class,'follows','following_user_id','user_id')->withPivot('confirmed');
+    }
+
+
 }

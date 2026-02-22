@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::controller(PostController::class)->group(function(){
         Route::get('post/create','create')->name('create_post');
         Route::post('post/create','store')->name('store_post');
-        Route::get('post/{post:slug}','show')->name('show_post'); //to search by slug not the ID 
+        Route::get('post/{post:slug}','show')->name('show_post'); //to search by slug not the ID
 
     });
+
+    Route::post('post/{post:slug}/comment',[CommentController::class,'store'])->name('comment_store');
 });
 
 require __DIR__.'/auth.php';

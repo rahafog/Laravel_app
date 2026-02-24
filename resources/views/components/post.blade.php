@@ -9,11 +9,16 @@
     <div class="card-body">
 
     <div class="max-h-[35rem] overflow-hidden">
-        <img
-            src="{{ asset('storage/' . $post->image) }}"
+        <img src="{{ asset('storage/' . $post->image) }}"
             alt="{{ $post->description }}"
-            class="h-auto w-full object-cover"
-        >
+            class="h-auto w-full object-cover">
+    </div>
+    <div class="flex flex-row">
+        @livewire('like',['post'=>$post])
+        
+        <a href="{{route('show_post',$post->slug)}}">
+            <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
+        </a>
     </div>
 
     <div class="p-3">

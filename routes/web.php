@@ -22,6 +22,9 @@ Route::middleware('auth')->group(function () {
         Route::get('post/create','create')->name('create_post');
         Route::post('post/create','store')->name('store_post');
         Route::get('post/{post:slug}','show')->name('show_post'); //to search by slug not the ID
+        Route::get('post/{post:slug}/edit','edit')->name('get_update_post');
+        Route::put('post/edit/{post:slug}','update')->name('post.update');
+        Route::get('/','index')->name('home_page');
 
     });
 

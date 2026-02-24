@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="p-10 bg-white rounded-xl shadow max-w-3xl mx-auto">
-        <h1 class="text-3xl mb-10">{{ __('create a new post') }}</h1>
+        <h1 class="text-3xl mb-10">{{ __('edit post') }}</h1>
 
         @if ($errors->any())
             <div class="w-full bg-red-50 text-red-700 p-5 mb-5 rounded-lg">
@@ -12,12 +12,14 @@
             </div>
         @endif
 
-        <form action="/post/create" method="POST" class="w-full" enctype="multipart/form-data">
+        <form action="{{ route('post.update',$post->slug)}}" method="POST" class="w-full" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
-              <x-create-edit/>
+            <x-create-edit :post="$post" />
+
             <x-primary-button class="mt-4">
-                {{ __('Create post') }}
+                {{ __('Update post') }}
             </x-primary-button>
         </form>
     </div>

@@ -18,6 +18,12 @@
                     <div class="grow">
                         <a href="" class="font-bold">{{$post->owner->username}}</a>
                     </div>
+                    @if($post->owner->id==auth()->id())
+                    <a href="{{route('get_update_post',$post->slug)}}">
+                        <i class="bx bx-draw-ahead"></i>
+
+                        </a>
+                        @endif
                 </div>
 
             </div>

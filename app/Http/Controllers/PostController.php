@@ -14,7 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts=Post::all();
+        $suggested_users=auth()->user()->suggested_users();
+        return view('posts.index',['posts'=>$posts,'suggested_users'=>$suggested_users]);
     }
 
     /**
@@ -62,7 +64,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit',compact('post'));
     }
 
     /**
@@ -70,7 +72,19 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->validate([
+        'description' => 'required',
+        'image' => 'nullable|mimes:jpeg,jpg,png,gif',
+    ]);
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image')->store('posts', 'public');
+        $data['image'] = $image;
+    }
+
+    $post->update($data);
+
+    return redirect()->back()->with('success', 'post updated');
     }
 
     /**
